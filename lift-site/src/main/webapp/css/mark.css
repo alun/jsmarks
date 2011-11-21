@@ -30,3 +30,7 @@
 .mark input[type="submit"] {
   font-size: 4em;
 }
+
+.mark .compiledBlock pre {
+  white-space: normal;
+}

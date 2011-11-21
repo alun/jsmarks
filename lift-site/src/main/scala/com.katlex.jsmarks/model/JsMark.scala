@@ -19,6 +19,7 @@ class JsMark private() extends MongoRecord[JsMark] with ObjectIdPk[JsMark] {
     override def defaultValueBox = Full(Param("message", "Message which will be shown in alert") :: Nil)
   }
   object content extends StringField(this, "window.alert(message)")
+  object description extends StringField(this, "Shows an alert message")
 }
 
 object JsMark extends JsMark with MongoMetaRecord[JsMark] {

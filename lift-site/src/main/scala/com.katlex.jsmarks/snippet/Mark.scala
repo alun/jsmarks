@@ -10,6 +10,7 @@ import net.liftweb.common.{Full, Empty, Box, LazyLoggable}
 
 import lib.Compressor
 import xml.{Text, NodeSeq}
+import net.liftweb.textile.TextileParser
 
 class Mark extends StatefulSnippet with LazyLoggable {
   import model._
@@ -38,7 +39,7 @@ class Mark extends StatefulSnippet with LazyLoggable {
       "#markLink" #> compiledBox.dmap("* *" #> Text(mark.name.get)) { compiledJsLine =>
         "*" #> <a href={compiledJsLine}>{mark.name}</a>
       } &
-      ".markId *" #> ("[" + mark.id  + "]") &
+      ".desc *" #> TextileParser.toHtml(mark.description.is) &
       ".dragHint" #> compiledBox.map(_ => I) &
       ".code *" #> mark.content &
       /*".markLink *" #> "Compile" &
