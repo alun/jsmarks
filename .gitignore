@@ -1,0 +1,4 @@
+.idea*
+lift_proto*
+target
+project/boot

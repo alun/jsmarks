@@ -1,0 +1,10 @@
+h1. What is it
+
+p. JS marks is the web service which can help you to generate JavaScript code, ready for running from the browser's
+bookmarks bar.
+
+p. Simple JS mark can be written by hand and commonly it looks like following:
+
+p. @javascript:(function(message){window.alert(message)})("Hello there!")@
+
+p. "drag this link to bookmarks to see above in action":javascript:(function(message){window.alert(message)})("Hello there!")

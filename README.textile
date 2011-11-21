@@ -1,0 +1,14 @@
+h1. JS Bookmark generator
+
+h2. What is it?
+
+p. JS Bookamark generator is the project which can generate JavaScript from template files.
+Generated JS is commonly looking like this:
+
+bc. javascript:(function(param){alert(param);})("Concrete value")
+
+p. You need only to write a function body, i.e. @alert(param)@ in example. And specify template parametrization via the web interface.
+
+Then you instantiate a template specifying concrete param values for template and voila - you get single JS line ready to be pasted in bookmarks toolbar of your browser. Clicking on bookmark will call your template instance and do the work on current browser page.
+
+p{color:red}. So simple!

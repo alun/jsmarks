@@ -1,0 +1,66 @@
+body {
+    font-family: Arial;
+}
+
+.menu, #submenu, h1, h2, h3, h4 {
+    font-family: Georgia;
+}
+
+.edit_error_class {
+    display: block;
+    color: red;
+}
+
+.menu {
+    font-size: 1.5em;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0 0 0 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.menu ul li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.menu ul li a {
+    display: block;
+    padding: 3px 30px;
+    text-decoration: none;
+}
+
+.menu ul li span {
+    display: block;
+    padding: 3px;
+    padding: 3px 30px;
+    text-decoration: none;
+}
+
+.menu ul li a:hover {
+    background-color: #eee;
+}
+
+.menu li.current {
+    background-color: #ddd;
+}
+
+hr {
+    margin: 0 0 1.5em;
+}
+
+.site-title h1 {
+    font-size: 4em;
+    text-shadow: 1px 1px 0 #666;
+}
+
+#info #submenu {
+    font-size: 1.5em;
+}
