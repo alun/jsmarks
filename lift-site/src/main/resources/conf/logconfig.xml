@@ -12,6 +12,6 @@
     <appender-ref ref="STDOUT" />
   </root>
 
-  <logger name="com.katlex.com.katlex.jsmarks" level="debug"/>
+  <logger name="com.katlex.jsmarks" level="debug"/>
   <logger name="net.liftweb.util.TimeHelpers" level="error"/>
 </configuration>

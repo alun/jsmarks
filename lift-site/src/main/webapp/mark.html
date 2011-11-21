@@ -1,0 +1,27 @@
+<lift:surround with="default" xmlns:lift="http://liftweb.net">
+  <head>
+    <link type="text/css" rel="stylesheet" media="screen" href="/css/mark.css"/>
+  </head>
+  <div class="mark lift:Mark">
+    <h1><span id="markLink"></span> <span class="dragHint">&lt;-- Drag the link to bookmarks</span> <!--<span class="markId"></span>--></h1>
+    <h2>Initial code</h2>
+    <pre><code class="code"></code></pre>
+    <h2>Parametrization</h2>
+    <form method="post">
+      <table class="params">
+        <tr>
+          <td class="name"></td>
+          <td class="value"></td>
+        </tr>
+      </table>
+      <input type="submit" value="compile"></input>
+    </form>
+    <div class="compiledBlock">
+      <hr class="space"/>
+      <h2>Compiled code</h2>
+      <pre><code class="compiled">
+      </code></pre>
+    </div>
+    <hr class="space"/>
+  </div>
+</lift:surround>

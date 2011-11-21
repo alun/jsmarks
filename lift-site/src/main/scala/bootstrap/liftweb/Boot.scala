@@ -5,16 +5,22 @@ import common._
 import http._
 import mongodb.{MongoHost, MongoAddress, DefaultMongoIdentifier, MongoDB}
 import sitemap._
+import sitemap.Loc._
 
-import com.katlex.jsmarks.snippet.KnowledgeBase
 import util.{Mailer, Props}
 import javax.mail.{PasswordAuthentication, Authenticator}
+import com.katlex.jsmarks.snippet.Mark
+import com.katlex.jsmarks.model.JsMark
 
-class Boot extends Loggable {
+class Boot extends LazyLoggable {
   def boot {
     LiftRules.addToPackages("com.katlex.jsmarks")
 
     setupDB
+    /*
+    for (_ <- 1 to 10)
+      JsMark.createRecord.save
+    */
 
     Logger.setup = for {
       logConfig <- Box !! classOf[Boot].getClassLoader.getResource("conf/logconfig.xml")
@@ -22,7 +28,11 @@ class Boot extends Loggable {
       Logback.withFile(logConfig) _
     }
 
-    val sitemap = Menu.i("Main") / "index" :: Nil
+    val sitemap = Seq(
+      Menu.i("Main") / "index",
+      Menu.i("Marks") / "marks",
+      Mark.menu
+    )
     LiftRules.setSiteMap(SiteMap(sitemap: _*))
 
    // Use jQuery 1.4

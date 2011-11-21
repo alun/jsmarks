@@ -1,0 +1,32 @@
+.mark td input {
+  width: 100%;
+}
+
+.mark .name {
+  width: 150px;
+}
+
+.mark .dragHint {
+  color: #ddd;
+}
+
+.mark pre {
+  padding: 10px;
+  background: #efe;
+}
+
+.mark .params .name {
+  font-size: 1.2em;
+}
+
+.mark input[type="text"] {
+  padding: 5px;
+}
+
+.mark input[type="text"]:focus {
+  background: #ff9;
+}
+
+.mark input[type="submit"] {
+  font-size: 4em;
+}

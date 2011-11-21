@@ -25,8 +25,9 @@ object Dependencies {
   val lift_webkit = "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default"
   val lift_textile = "net.liftweb" %% "lift-textile" % liftVersion % "compile->default"
   val lift_mongo_record = "net.liftweb" %% "lift-mongodb-record" % liftVersion % "compile->default"
+  var yuicomp = "com.yahoo.platform.yui" % "yuicompressor" % "2.3.6"
 
-  val liftDeps = Seq(jetty, servletApi, logback, lift_webkit, lift_mongo_record, lift_textile)
+  val liftDeps = Seq(jetty, servletApi, logback, lift_webkit, lift_mongo_record, lift_textile, yuicomp)
 
   val allDeps = liftDeps
 } 
