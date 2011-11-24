@@ -3,24 +3,26 @@
     <link type="text/css" rel="stylesheet" media="screen" href="/css/mark.css"/>
   </head>
   <div class="mark lift:Mark">
-    <h1><span id="markLink"></span> <span class="dragHint">&lt;-- Drag the link to bookmarks</span> <!--<span class="markId"></span>--></h1>
+    <h1><span id="markName"></span></h1>
     <div class="desc"></div>
     <h2>Initial code</h2>
     <pre><code class="code"></code></pre>
     <h2>Parametrization</h2>
-    <form method="post">
+    <form id="paramsForm" method="post">
       <table class="params">
         <tr>
           <td class="name"></td>
           <td class="value"></td>
         </tr>
       </table>
-      <input type="submit" value="compile"></input>
+      <input id="send" type="submit" value="compile"></input>
     </form>
-    <div class="compiledBlock">
+    <div id="compiledBlock">
       <hr class="space"/>
-      <h2>Compiled code</h2>
-      <pre class="compiled"></pre>
+      <h2>Compiled mark</h2>
+      <h1><a id="markLink"></a> <span class="dragHint">&lt;-- Drag the link to bookmarks</span></h1>
+      <h3>Fatten JavaScript code:</h3>
+      <pre id="compiledCode"></pre>
     </div>
     <hr class="space"/>
   </div>

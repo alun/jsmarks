@@ -31,6 +31,10 @@
   font-size: 4em;
 }
 
-.mark .compiledBlock pre {
+.mark #compiledBlock pre {
   white-space: normal;
+}
+
+.mark #compiledBlock {
+  display: none;
 }
