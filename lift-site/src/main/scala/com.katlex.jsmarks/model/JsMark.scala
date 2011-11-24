@@ -5,8 +5,9 @@ import net.liftweb.mongodb.record.{MongoMetaRecord, MongoRecord}
 import net.liftweb.record.field.{IntField, StringField}
 import net.liftweb.mongodb.{JsonObjectMeta, JsonObject}
 import net.liftweb.mongodb.record.field.{MongoCaseClassListField, MongoListField, ObjectIdPk}
-import net.liftweb.common.Full
 import net.liftweb.sitemap.Menu
+import net.liftweb.common.{LazyLoggable, Full}
+import com.mongodb.BasicDBObjectBuilder
 
 
 class JsMark private() extends MongoRecord[JsMark] with ObjectIdPk[JsMark] {
@@ -28,6 +29,11 @@ object JsMark extends JsMark with MongoMetaRecord[JsMark] {
   }
   case class Param(name:String, description:String)
 
+  // build unique index for name
+  useColl { coll =>
+    val dbo = BasicDBObjectBuilder.start().append(name.name, 1).get();
+    coll.ensureIndex(dbo, "uniqueName", true)
+  }
 }
 
 

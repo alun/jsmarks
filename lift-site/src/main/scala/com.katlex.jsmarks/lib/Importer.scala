@@ -4,8 +4,8 @@ package lib
 import bootstrap.liftweb.Boot
 import model.JsMark
 import java.io.File
-import net.liftweb.common.LazyLoggable
 import io.Source
+import net.liftweb.common.{Full, LazyLoggable}
 
 
 object Importer extends LazyLoggable {
@@ -27,47 +27,58 @@ object Importer extends LazyLoggable {
     for {
       (name, exts) <- filesMap
     } {
-      val remainedExts = Set("js", "meta", "desc") -- exts
+      val remainedExts = Set("meta", "js", "desc") -- exts
       if (!remainedExts.isEmpty) {
         logger.error("Bad configuraion. Following files should exist: %s" format (remainedExts.map(ext => name + "." + ext).mkString(", ")))
       } else {
-        val record = JsMark.createRecord
 
-        for (ext <- exts) {
+        def fillRecord(record: JsMark) = {
+          for (ext <- exts) {
 
-          val file = new File(Seq(sourceDir.getAbsolutePath, name).mkString("/") + "." + ext)
-          val src = Source.fromFile(file)
+            val file = new File(Seq(sourceDir.getAbsolutePath, name).mkString("/") + "." + ext)
+            val src = Source.fromFile(file)
 
-          ext match {
-            case "js" => record.content(src.mkString)
-            case "desc" => record.description(src.mkString)
-            case "meta" => src.getLines().filter(_.trim.size != 0).toList match {
-              case title :: Nil =>
-                record.name(title)
-              case title :: params =>
-                record.name(title)
-                val paramsWithNulls = for {
-                  paramLine <- params
-                } yield {
-                  paramLine.split(" ").toList match {
-                    case name :: description =>
-                      JsMark.Param(name, description.mkString(" "))
-                    case _ =>
-                      logger.error("Bad param spec in file %s: %s" format (file.getName, paramLine))
-                      null
+            ext match {
+              case "js" => record.content(src.mkString)
+              case "desc" => record.description(src.mkString)
+              case "meta" => src.getLines().filter(_.trim.size != 0).toList match {
+                case title :: Nil =>
+                  JsMark.find("name", title)
+                  record.name(title)
+                case title :: params =>
+                  record.name(title)
+                  val paramsWithNulls = for {
+                    paramLine <- params
+                  } yield {
+                    paramLine.split(" ").toList match {
+                      case name :: description =>
+                        JsMark.Param(name, description.mkString(" "))
+                      case _ =>
+                        logger.error("Bad param spec in file %s: %s" format (file.getName, paramLine))
+                        null
+                    }
                   }
-                }
-                record.params(paramsWithNulls.filterNot(_ == null))
+                  record.params(paramsWithNulls.filterNot(_ == null))
+                case _ =>
+                  logger.error("Bad meta file: %s" format file.getName)
+              }
               case _ =>
-                logger.error("Bad meta file: %s" format file.getName)
+                logger.warn("Unknown config file: " + file)
             }
-            case _ =>
-              logger.warn("Unknown config file: " + file)
           }
+          record
         }
 
-        record.save
-        logger.info("Created record from file set: " + name)
+        for {
+          record <- Full(fillRecord(JsMark.createRecord))
+          (realRecord, updated) <- JsMark.find("name", record.name.is).map { foundRecord =>
+              (fillRecord(foundRecord), true)
+            } .or(Full((record, false)))
+          updatedString = if (updated) "Updated" else "Created"
+        } {
+          realRecord.save
+          logger.info("%s record from file set: %s" format (updatedString, name))
+        }
       }
     }
   }
