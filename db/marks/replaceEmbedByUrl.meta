@@ -1,0 +1,4 @@
+Embed replacer by URL
+
+oldBaseUrl Old base url of embed to replace
+newBaseUrl New base url value for the embed src attribute

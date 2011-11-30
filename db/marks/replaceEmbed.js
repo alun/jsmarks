@@ -11,10 +11,10 @@ function log(str) {
 }
 
 try {
-  embedNum = parseInt(embedNum)
+  embedNum = parseInt(embedNum);
 } catch(e) {
   log("Bad embedNum value");
-  return
+  return;
 }
 
 var embeds = document.getElementsByTagName('embed'),
