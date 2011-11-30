@@ -6,7 +6,7 @@ import WebPlugin._
 object BuildSettings { 
   val buildOrganization = "com.katlex" 
   val buildScalaVersion = "2.9.1" 
-  val buildVersion      = "0.1.0" 
+  val buildVersion      = "0.1.0-SNAPSHOT" 
   val buildSettings = Defaults.defaultSettings ++ Seq(
         organization := buildOrganization,
         scalaVersion := buildScalaVersion,
@@ -16,7 +16,7 @@ object BuildSettings {
 
 object Dependencies { 
 
-  val jetty = "org.mortbay.jetty" % "jetty" % "6.1.22" % "jetty,test"
+  val jetty = "org.mortbay.jetty" % "jetty" % "6.1.22" % "jetty,compile"
   val servletApi = "javax.servlet" % "servlet-api" % "2.5" % "provided->default"
   val logback = "ch.qos.logback" % "logback-classic" % "0.9.26" % "compile->default"
 
@@ -27,9 +27,9 @@ object Dependencies {
   val lift_mongo_record = "net.liftweb" %% "lift-mongodb-record" % liftVersion % "compile->default"
   var yuicomp = "com.yahoo.platform.yui" % "yuicompressor" % "2.3.6"
 
-  val liftDeps = Seq(jetty, servletApi, logback, lift_webkit, lift_mongo_record, lift_textile, yuicomp)
+  val liftDeps = Seq(jetty, servletApi, logback, lift_webkit, lift_mongo_record, lift_textile)
 
-  val allDeps = liftDeps
+  val allDeps = liftDeps ++ Seq(yuicomp)
 } 
 
 object JSMarkProjectBuild extends Build { 
@@ -39,7 +39,9 @@ object JSMarkProjectBuild extends Build {
   lazy val core = Project("JS Mark lift site", file ("lift-site"),
     settings = buildSettings ++ WebPlugin.webSettings ++ Seq(
       libraryDependencies := allDeps,
-      jettyScanDirs := Nil
+      jettyScanDirs := Nil,
+      publishTo := Some(Resolver.ssh("katlex-repo", "katlex.com", 1022, "katlex/maven2") 
+        withPermissions("0644") as ("alun", Path(Path.userHome) / ".ssh/id_rsa"))
     )
   )
 }
