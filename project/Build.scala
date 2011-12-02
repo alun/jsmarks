@@ -34,10 +34,22 @@ object Dependencies {
 
 object JSMarkProjectBuild extends Build { 
   import Dependencies._ 
-  import BuildSettings._ 
+  import BuildSettings._
 
+  lazy val prepareWebappResources = TaskKey[Seq[File]]("webapp-dir", "Dir for webapp.")
+  
   lazy val core = Project("JS Mark lift site", file ("lift-site"),
     settings = buildSettings ++ WebPlugin.webSettings ++ Seq(
+      prepareWebappResources <<= (baseDirectory, resourceManaged) map { (base, managed) =>
+        val webapp = base / "src" / "main" / "webapp"
+        val files = Seq(webapp) ++ (webapp ** "*").get
+        val copy = (files x rebase(base / "src" / "main", managed)).map { case (src, dest) =>
+          Sync.copy(src, dest)
+          dest
+        }
+        Seq.empty[File]
+      },
+      resourceGenerators in Compile <+= prepareWebappResources map (value => value),
       libraryDependencies := allDeps,
       jettyScanDirs := Nil,
       publishTo := Some(Resolver.ssh("katlex-repo", "katlex.com", 1022, "katlex/maven2") 
