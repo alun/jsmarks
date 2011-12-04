@@ -20,6 +20,8 @@ object Dependencies {
   val servletApi = "javax.servlet" % "servlet-api" % "2.5" % "provided->default"
   val logback = "ch.qos.logback" % "logback-classic" % "0.9.26" % "compile->default"
 
+  val launcher = "org.scala-tools.sbt" %% "launcher-interface" % "0.11.1" % "provided"
+
   val liftVersion = "2.4-M4"
 
   val lift_webkit = "net.liftweb" %% "lift-webkit" % liftVersion % "compile->default"
@@ -29,7 +31,7 @@ object Dependencies {
 
   val liftDeps = Seq(jetty, servletApi, logback, lift_webkit, lift_mongo_record, lift_textile)
 
-  val allDeps = liftDeps ++ Seq(yuicomp)
+  val allDeps = liftDeps ++ Seq(yuicomp, launcher)
 } 
 
 object JSMarkProjectBuild extends Build { 
@@ -47,7 +49,7 @@ object JSMarkProjectBuild extends Build {
       }
     }
 
-  lazy val core = Project("JS Mark lift site", file ("lift-site"),
+  lazy val core = Project("JS Marks site", file ("lift-site"),
     settings = buildSettings ++ WebPlugin.webSettings ++ Seq(
       useWebappAsResource,
       libraryDependencies := allDeps,
