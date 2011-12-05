@@ -49,8 +49,8 @@ object JSMarkProjectBuild extends Build {
       }
     }
 
-  lazy val core = Project("JS Marks site", file ("lift-site"),
-    settings = buildSettings ++ WebPlugin.webSettings ++ Seq(
+  lazy val site = Project("JS Marks site", file ("lift-site"),
+    settings = buildSettings ++ webSettings ++ Seq(
       useWebappAsResource,
       libraryDependencies ++= siteDependencies,
       resolvers ++= siteResolvers,
