@@ -1,5 +1,5 @@
-import sbt._ 
-import Keys._ 
+import sbt._
+import Keys._
 import com.github.siasia.WebPlugin
 import WebPlugin._
 
@@ -53,7 +53,10 @@ object JSMarkProjectBuild extends Build {
     settings = buildSettings ++ webSettings ++ Seq(
       useWebappAsResource,
       libraryDependencies ++= siteDependencies,
+      // exclude war from publishing
+      packagedArtifacts ~= (_.filter(_._1.`type` != "war")),
       resolvers ++= siteResolvers,
+      publishArtifact in (Compile, packageBin) := true,
       publishTo := Some(Resolver.ssh("katlex-repo", "katlex.com", 1022, "katlex/maven2") 
         withPermissions("0644") as ("alun", Path(Path.userHome) / ".ssh/id_rsa"))
     )

@@ -1,5 +1,5 @@
 package com.katlex.jsmarks
-package lib
+package boot
 
 import bootstrap.liftweb.Boot
 import model.JsMark
@@ -7,9 +7,11 @@ import java.io.File
 import io.Source
 import net.liftweb.common.{Full, LazyLoggable}
 
-
-object Importer extends LazyLoggable {
-  def main(args:Array[String]) {
+/**
+ * Imports data to DB using predefined conventional folder structure
+ */
+object Import extends LazyLoggable with EntryPoint {
+  def run(args:Array[String]) = {
     new Boot().boot
     val argsMap = args.zipWithIndex.map(e => e._2 -> e._1).toMap
 
@@ -81,5 +83,7 @@ object Importer extends LazyLoggable {
         }
       }
     }
+
+    0
   }
 }
