@@ -17,7 +17,6 @@ object Server extends EntryPoint {
   
   case class JarFileOps(jarFile:JarFile) {
     def unzipEntry(entry:ZipEntry, to:File) = tryo {
-      val name = entry.getName
       val buffer = Array.ofDim[Byte](4092)
       val input = jarFile.getInputStream(entry)
       to.getParentFile.mkdirs()
@@ -55,19 +54,21 @@ object Server extends EntryPoint {
       server.addHandler(context)
 
       try {
+        println("Starting server... Press any key to stop")
         server.start()
-        while (System.in.available() == 0) {
+        while (System.in.available() == 0) {          
           Thread.sleep(5000)
         }
+        println("Key preseed. Stopping...")
         server.stop()
         server.join()
+
+        0
       } catch {
         case e:Exception =>
           e.printStackTrace()
-          System.exit(3)
+          3
       }
-
-      0 // Success error code
   }
 
   /**
