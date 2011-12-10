@@ -17,10 +17,6 @@ class Boot extends LazyLoggable {
     LiftRules.addToPackages("com.katlex.jsmarks")
 
     setupDB
-    /*
-    for (_ <- 1 to 10)
-      JsMark.createRecord.save
-    */
 
     Logger.setup = for {
       logConfig <- Box !! classOf[Boot].getClassLoader.getResource("conf/logconfig.xml")
