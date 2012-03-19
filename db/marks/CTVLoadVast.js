@@ -63,5 +63,8 @@ if (!context) {
 var gExternal = context.gExternal;
 gExternal.adEngine1 = vastUrl;
 gExternal.adEngineName1 = "JSMarks injected engine";
+if (overlay == "1") {
+  gExternal.adType = "overlay";
+}
 
 refresh(embed);

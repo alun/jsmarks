@@ -1,3 +1,4 @@
 CTV VAST Loader
 
 vastUrl The URL from where to load the VAST XML
+overlay 0
