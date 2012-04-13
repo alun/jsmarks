@@ -1,0 +1,3 @@
+p. Extracts Tumri data object into global well known variable
+
+p. Run that bookmarklet and you will have window.tumri variable on which you can run methods such as .getOffers() etc.
