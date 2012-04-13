@@ -14,10 +14,9 @@ log(stars("Begin embeds"));
 for(
   j = 0,
   embeds = document.getElementsByTagName("embed"),
-  embed = embeds[j],
   totalEmbeds = embeds.length;  
   j < totalEmbeds; ++j) {
-
+  var embed = embeds[j];
   log(embed.src.split("?")[0]);
 }
 
